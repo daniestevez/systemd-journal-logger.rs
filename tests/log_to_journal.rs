@@ -28,7 +28,10 @@ fn simple_log_entry() {
             .module_path(Some(module_path!()))
             .file(Some(file!()))
             .line(Some(92749))
-            .args(format_args!("systemd_journal_logger_memfd_syscall test: {}", 42))
+            .args(format_args!(
+                "systemd_journal_logger_memfd_syscall test: {}",
+                42
+            ))
             .build(),
     );
 
@@ -36,7 +39,10 @@ fn simple_log_entry() {
 
     assert_eq!(entry["TARGET"], "simple_log_entry");
     assert_eq!(entry["PRIORITY"], "4");
-    assert_eq!(entry["MESSAGE"], "systemd_journal_logger_memfd_syscall test: 42");
+    assert_eq!(
+        entry["MESSAGE"],
+        "systemd_journal_logger_memfd_syscall test: 42"
+    );
     assert_eq!(entry["CODE_FILE"], file!());
     assert_eq!(entry["CODE_LINE"], "92749");
     assert_eq!(entry["CODE_MODULE"], module_path!());
@@ -65,7 +71,9 @@ fn internal_null_byte_in_message() {
         &Record::builder()
             .level(Level::Warn)
             .target("internal_null_byte_in_message")
-            .args(format_args!("systemd_journal_logger_memfd_syscall with \x00 byte"))
+            .args(format_args!(
+                "systemd_journal_logger_memfd_syscall with \x00 byte"
+            ))
             .build(),
     );
 
