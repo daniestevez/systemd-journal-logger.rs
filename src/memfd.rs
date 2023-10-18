@@ -16,7 +16,7 @@ use std::io::{Error, Result};
 use std::os::fd::{AsRawFd, BorrowedFd, FromRawFd, OwnedFd};
 
 use libc::{
-    c_char, c_uint, fcntl, memfd_create, F_ADD_SEALS, F_SEAL_GROW, F_SEAL_SEAL, F_SEAL_SHRINK,
+    c_char, c_int, c_uint, fcntl, F_ADD_SEALS, F_SEAL_GROW, F_SEAL_SEAL, F_SEAL_SHRINK,
     F_SEAL_WRITE, MFD_ALLOW_SEALING, MFD_CLOEXEC,
 };
 
@@ -46,4 +46,15 @@ pub fn seal_fully(fd: BorrowedFd) -> Result<()> {
     } else {
         Ok(())
     }
+}
+
+// Implementation of memfd_create() using a syscall instead of calling the libc
+// function.
+//
+// The memfd_create() function is only available in glibc >= 2.27 (and other
+// libc implementations). To support older versions of glibc, we perform a raw
+// syscall (this will fail in Linux < 3.17, where the syscall was not
+// available).
+unsafe fn memfd_create(name: *const c_char, flags: c_uint) -> c_int {
+    libc::syscall(libc::SYS_memfd_create, name, flags) as c_int
 }
