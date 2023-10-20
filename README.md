@@ -1,4 +1,4 @@
-# systemd-journal-logger-memfd-syscall
+# systemd-journal-logger-memfd-syscall (deprecated)
 
 A pure Rust [log] logger for the [systemd journal][1] (fork supporting older glibc versions).
 
@@ -6,6 +6,13 @@ A pure Rust [log] logger for the [systemd journal][1] (fork supporting older gli
 [1]: https://www.freedesktop.org/software/systemd/man/systemd-journald.service.html
 
 ## About this fork
+
+**Update:** Since version 2.1.0,
+[systemd-journal-logger is now using rustix](https://github.com/swsnr/systemd-journal-logger.rs/pull/24).
+Rustix uses syscalls instead of calling the libc functions, so
+systemd-journal-logger works again with old glibc versions and there is no need
+to maintain this fork. This fork is now marked as deprecated.
+`systemd-journal-logger >= 2.1` should be used instead.
 
 This crate is a fork of
 [systemd-journal-logger](https://github.com/swsnr/systemd-journal-logger.rs). The

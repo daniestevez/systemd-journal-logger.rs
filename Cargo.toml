@@ -1,16 +1,19 @@
 [package]
 name = "systemd-journal-logger-memfd-syscall"
-version = "2.0.0"
+version = "2.0.1"
 authors = ["Sebastian Wiesner <sebastian@swsnr.de>", "Daniel Estevez <daniel@destevez.net>"]
 license = "MIT OR Apache-2.0"
 readme = "README.md"
 repository = "https://github.com/daniestevez/systemd-journal-logger.rs"
 documentation = "https://docs.rs/systemd-journal-logger-memfd-syscall"
-description = "Systemd journal logger for the log facade (fork supporting older glibc versions)"
+description = "Systemd journal logger for the log facade (fork supporting older glibc versions) DEPRECATED"
 categories = ["development-tools::debugging"]
 keywords = ["logging", "systemd", "journal"]
 edition = "2021"
 rust-version = "1.71"
+
+[badges]
+maintenance = { status = "deprecated" }
 
 [dependencies]
 # libsystemd isn't no_std compatible so we can conveniently enable log's std
